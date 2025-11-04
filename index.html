@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ShipGame - Jogo de Nave</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="game-container">
+        <div id="score">Pontos: 0</div>
+        <div id="lives">Vidas: 3</div>
+        <canvas id="gameCanvas"></canvas>
+        <div id="game-over" class="hidden">
+            <h2 id="game-over-message">Game Over</h2>
+            <button id="restart-btn">Jogar Novamente</button>
+        </div>
+    </div>
+    <script src="game.js"></script>
+</body>
+</html>
