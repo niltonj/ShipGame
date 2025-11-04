@@ -4,6 +4,13 @@ const ctx = canvas.getContext('2d');
 canvas.width = 800;
 canvas.height = 600;
 
+// Game constants
+const ENEMY_SPAWN_PROBABILITY = 0.02;
+const ENEMY_FIRE_RATE = 1500;
+const ENEMY_FIRE_PROBABILITY = 0.02;
+const BOSS_FIRE_RATE = 800;
+const BOSS_SPAWN_SCORE = 500;
+
 // Game state
 const game = {
     score: 0,
@@ -210,7 +217,7 @@ function updateBullets() {
 }
 
 function spawnEnemy() {
-    if (boss || Math.random() < 0.98) return;
+    if (boss || Math.random() < (1 - ENEMY_SPAWN_PROBABILITY)) return;
     
     enemies.push({
         x: Math.random() * (canvas.width - 60) + 30,
@@ -230,7 +237,7 @@ function updateEnemies() {
         
         // Enemy shoots
         const now = Date.now();
-        if (now - enemy.lastShot > 1500 && Math.random() < 0.02) {
+        if (now - enemy.lastShot > ENEMY_FIRE_RATE && Math.random() < ENEMY_FIRE_PROBABILITY) {
             enemyBullets.push({
                 x: enemy.x,
                 y: enemy.y + enemy.height,
@@ -248,7 +255,7 @@ function updateEnemies() {
 }
 
 function spawnBoss() {
-    if (game.score >= 500 && !game.bossAppeared && !boss) {
+    if (game.score >= BOSS_SPAWN_SCORE && !game.bossAppeared && !boss) {
         game.bossAppeared = true;
         boss = {
             x: canvas.width / 2,
@@ -277,7 +284,7 @@ function updateBoss() {
     
     // Boss shoots
     const now = Date.now();
-    if (now - boss.lastShot > 800) {
+    if (now - boss.lastShot > BOSS_FIRE_RATE) {
         // Boss shoots 3 bullets
         for (let i = -1; i <= 1; i++) {
             enemyBullets.push({
